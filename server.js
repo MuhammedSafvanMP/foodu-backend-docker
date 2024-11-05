@@ -32,9 +32,14 @@ app.use("/api/admin", adminRoute);
 
 // DB connecting
 
-mongoose.connect(process.env.DB)
+mongoose.connect(process.env.DB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 30000, // 30 seconds
+  connectTimeoutMS: 30000          // 30 seconds
+})
 .then(() => console.log("DB connected"))
-.catch(error => console.log(error));
+.catch(error => console.log("DB connection error:", error));
 
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
