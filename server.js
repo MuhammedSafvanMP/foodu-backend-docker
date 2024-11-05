@@ -32,7 +32,7 @@ app.use("/api/admin", adminRoute);
 
 // DB connecting
 
-mongoose.connect(process.env.DB, {
+mongoose.connect(process.env.DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverSelectionTimeoutMS: 30000, // 30 seconds
