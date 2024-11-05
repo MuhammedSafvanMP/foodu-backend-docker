@@ -1,4 +1,4 @@
-name: Deploy Node Application
+name: Build and Push Docker Image
 
 on: 
   push:
@@ -17,15 +17,3 @@ jobs:
         run: docker build -t safump/foodu-backend:latest .
       - name: Publish Image to Docker Hub
         run: docker push safump/foodu-backend:latest 
- 
-  deploy:
-    needs: build
-    runs-on: self-hosted 
-    steps:
-      - name: Pull Image from Docker Hub
-        run: docker pull safump/foodu-backend:latest 
-      - name: Delete Old Container
-        run: docker rm -f foodu-backend-container  
-      - name: Run Docker Container
-        run: docker run -d -p 3028:3028 --name foodu-backend-container -e DB_URL="${{ secrets.DB_URL }}" safump/foodu-backend
-
